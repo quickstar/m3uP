@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ChanelInfo>
+@{
+	ViewData["Title"] = "Index";
+}
+
+@foreach (var chanelGroup in Model.GroupBy(c => c.GroupTitle, (k, g) => new { Key = k, Chanels = g.ToList() }))
+{
+	<h1>@chanelGroup.Key</h1>
+	<ul>
+		@foreach (var chanel in chanelGroup.Chanels)
+		{
+			<li>@chanel.Name (@string.Join(',', chanel.Quality))</li>
+		}
+	</ul>
+}
