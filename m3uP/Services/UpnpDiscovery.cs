@@ -23,40 +23,23 @@ namespace m3uP.Services
 					</device>
 				</root>";
 
+		private readonly string _baseUrl;
+
 		private readonly IConfigurationSection _configuration;
-		private readonly string _urlBase;
 
 		public UpnpDiscovery(IConfiguration configuration)
 		{
-			_configuration = configuration.GetSection("Discovery");
-			_urlBase = configuration.GetValue<string>("app:urlbase");
-		}
-
-		public UpnpInfo GenerateUpnpInfo()
-		{
-			var upnpInfo = new UpnpInfo { SpecVersion = new SpecVersion { Major = 1, Minor = 0 } };
-			upnpInfo.Device = new Device
-			{
-					DeviceType = "urn:schemas-upnp-org:device:MediaServer:1",
-					FriendlyName = _configuration.GetValue<string>("Device-Friendly-Name"),
-					Manufacturer = _configuration.GetValue<string>("Device-Manufacturer"),
-					ModelName = _configuration.GetValue<string>("Device-Model-Number"),
-					ModelNumber = _configuration.GetValue<string>("Device-Model-Number"),
-					SerialNumber = _configuration.GetValue<string>("Device-UUID"),
-					Udn = $"uuid:{_configuration.GetValue<string>("Device-ID")}"
-			};
-			upnpInfo.UrlBase = _urlBase;
-
-			return upnpInfo;
+			_configuration = configuration.GetSection("discovery");
+			_baseUrl = configuration.GetValue<string>("app:baseurl");
 		}
 
 		public string DeviceXml
 		{
 			get
 			{
-				var device = GenerateUpnpInfo().Device;
+				var device = GenerateUpnpInfo();
 				return string.Format(DiscoverTemplate,
-									_urlBase,
+									_baseUrl,
 									device.FriendlyName,
 									device.Manufacturer,
 									device.ModelName,
@@ -64,6 +47,30 @@ namespace m3uP.Services
 									device.SerialNumber,
 									device.Udn);
 			}
+		}
+
+		public UpnpInfo GenerateUpnpInfo()
+		{
+			var upnpInfo = new UpnpInfo
+			{
+					BaseUrl = _baseUrl,
+					DeviceAuth = _configuration.GetValue<string>("Device-Auth"),
+					DeviceId = _configuration.GetValue<string>("Device-ID"),
+					DeviceUuid = _configuration.GetValue<string>("Device-UUID"),
+					DeviceType = "urn:schemas-upnp-org:device:MediaServer:1",
+					FirmwareName = _configuration.GetValue<string>("Device-Firmware-Name"),
+					FirmwareVersion = _configuration.GetValue<string>("Device-Firmware-Version"),
+					FriendlyName = _configuration.GetValue<string>("Device-Friendly-Name"),
+					LineupUrl = $"{_baseUrl.TrimEnd('/')}/lineup.json",
+					Manufacturer = _configuration.GetValue<string>("Device-Manufacturer"),
+					ModelName = _configuration.GetValue<string>("Device-Model-Number"),
+					ModelNumber = _configuration.GetValue<string>("Device-Model-Number"),
+					SerialNumber = _configuration.GetValue<string>("Device-UUID"),
+					TunerCount = 1,
+					Udn = $"uuid:{_configuration.GetValue<string>("Device-ID")}"
+			};
+
+			return upnpInfo;
 		}
 	}
 }

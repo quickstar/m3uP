@@ -291,7 +291,8 @@
     &lt;/Entry&gt;&#xD;
   &lt;/TypePattern&gt;&#xD;
 &lt;/Patterns&gt;</s:String>
-	<s:String x:Key="/Default/CodeStyle/CSharpUsing/KeepImports/=System/@EntryIndexedValue">System</s:String>
+	<s:String x:Key="/Default/CodeStyle/CSharpUsing/KeepImports/=System/@EntryIndexedValue"></s:String>
+	<s:Boolean x:Key="/Default/CodeStyle/CSharpUsing/KeepImports/=System/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeStyle/Generate/=Constructor/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/CodeStyle/Generate/=Constructor/Options/=CheckForNull/@EntryIndexedValue">False</s:String>
 	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpAttributeForSingleLineMethodUpgrade/@EntryIndexedValue">True</s:Boolean>

@@ -1,41 +1,45 @@
-﻿using System;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace m3uP.Models
 {
 	public class UpnpInfo
 	{
-		public Device Device { get; set; }
+		[JsonProperty("BaseURL")]
+		public string BaseUrl { get; set; }
 
-		public SpecVersion SpecVersion { get; set; }
+		public string DeviceAuth { get; set; }
 
-		[JsonProperty("URLBase")]
-		public string UrlBase { get; set; }
-	}
+		[JsonProperty("DeviceID")]
+		public string DeviceId { get; set; }
 
-	public class SpecVersion
-	{
-		public int Major { get; set; }
-
-		public int Minor { get; set; }
-	}
-
-	public class Device
-	{
+		[JsonIgnore]
 		public string DeviceType { get; set; }
+
+		public string FirmwareName { get; set; }
+
+		public string FirmwareVersion { get; set; }
 
 		public string FriendlyName { get; set; }
 
+		[JsonProperty("LineupURL")]
+		public string LineupUrl { get; set; }
+
 		public string Manufacturer { get; set; }
 
+		[JsonIgnore]
 		public string ModelName { get; set; }
 
 		public string ModelNumber { get; set; }
 
+		[JsonIgnore]
 		public string SerialNumber { get; set; }
 
-		[JsonProperty("UDN")]
+		public int TunerCount { get; set; }
+
+		[JsonIgnore]
 		public string Udn { get; set; }
+
+		[JsonIgnore]
+		public string DeviceUuid { get; set; }
 	}
 }
