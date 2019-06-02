@@ -4,6 +4,9 @@
 
 *.swp
 *.m3u
+epg.xml
+
+*appsettings.[dD]evelopment.json
 
 [Dd]ebug/
 [Rr]elease/
